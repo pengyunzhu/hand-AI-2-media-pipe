@@ -7,6 +7,7 @@ const canvasElement = document.getElementById('output_canvas');
 const canvasCtx = canvasElement.getContext('2d');
 const gestureName = document.getElementById('gestureName');
 const gestureAction = document.getElementById('gestureAction');
+const statusMessage = document.getElementById('statusMessage');
 const startCameraBtn = document.getElementById('startCameraBtn');
 const demoAudio = document.getElementById('demoAudio');
 
@@ -32,6 +33,11 @@ startCameraBtn.addEventListener('click', async () => {
     return;
   }
 
+  if (!isSecureContext()) {
+    setStatusMessage('請用本地伺服器開啟頁面，並使用 http://127.0.0.1:8000。');
+    return;
+  }
+
   camera = new Camera(videoElement, {
     onFrame: async () => {
       await hands.send({image: videoElement});
@@ -46,8 +52,21 @@ startCameraBtn.addEventListener('click', async () => {
     startCameraBtn.textContent = '相機已開啟';
   } catch (error) {
     gestureAction.textContent = '無法開啟相機，請允許相機存取。';
+    setStatusMessage('若相機沒開啟，請確認您是透過 http://127.0.0.1:8000 開啟頁面。');
   }
 });
+
+function isSecureContext() {
+  return window.location.protocol === 'http:' || window.location.protocol === 'https:';
+}
+
+function setStatusMessage(message) {
+  statusMessage.textContent = message;
+}
+
+function clearStatusMessage() {
+  statusMessage.textContent = '';
+}
 
 function onResults(results) {
   canvasElement.width = videoElement.videoWidth;
@@ -141,6 +160,8 @@ function detectGesture(landmarks) {
 }
 
 function updateState(gesture) {
+  clearStatusMessage();
+
   if (gesture === 'none') {
     gestureName.textContent = '尚未偵測';
     gestureAction.textContent = '請將手放在鏡頭前。';

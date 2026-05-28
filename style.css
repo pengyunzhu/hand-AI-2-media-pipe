@@ -101,6 +101,12 @@ header p {
   filter: brightness(1.05);
 }
 
+.warning {
+  margin-top: 16px;
+  color: #ffb3b3;
+  font-size: 0.95rem;
+}
+
 .demo-video-card h2 {
   margin-top: 0;
 }
