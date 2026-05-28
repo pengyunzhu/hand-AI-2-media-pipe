@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>MediaPipe 手部辨識</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <header>
+      <h1>純網頁 MediaPipe 手勢辨識</h1>
+      <p>開啟相機後，對攝像頭做出手勢即可觸發對應功能。</p>
+    </header>
+
+    <section class="camera-panel">
+      <div class="camera-wrapper">
+        <video id="input_video" autoplay playsinline></video>
+        <canvas id="output_canvas"></canvas>
+      </div>
+      <div class="status-card">
+        <p><strong>當前手勢：</strong><span id="gestureName">尚未偵測</span></p>
+        <p><strong>功能：</strong><span id="gestureAction">請對攝像頭比手勢</span></p>
+        <button id="startCameraBtn">開啟相機</button>
+      </div>
+    </section>
+
+    <section class="demo-panel">
+      <div class="demo-video-card">
+        <h2>示範音樂控制</h2>
+        <audio id="demoAudio" controls>
+          <source src="demo.mp3" type="audio/mpeg" />
+          您的瀏覽器不支援音訊播放。
+        </audio>
+        <p class="hint">請將 `demo.mp3` 放在與 `index.html` 相同資料夾中。</p>
+        <ul>
+          <li>👍 拇指比讚：播放音樂</li>
+          <li>✊ 握拳：暫停音樂</li>
+          <li>🖐️ 張開手掌：停止並回到開頭</li>
+          <li>✌️ 二指勝利手勢：快轉 5 秒</li>
+          <li>👉 伸出食指：倒退 5 秒</li>
+        </ul>
+      </div>
+    </section>
+
+    <footer>
+      <p>純前端實作，支援手機瀏覽器與桌機瀏覽器相機。使用 MediaPipe Hands。</p>
+    </footer>
+  </div>
+
+  <script type="module" src="script.js"></script>
+</body>
+</html>
